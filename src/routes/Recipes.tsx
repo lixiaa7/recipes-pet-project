@@ -3,9 +3,8 @@ import RecipeItem from "../components/RecipeItem.tsx";
 
 export default function RecipesPage() {
     const { data, isLoading, error } = useRecipes();
-    console.log(data?.recipes.forEach(recipe => {
-        console.log(recipe.cuisine);
-    }))
+
+    console.log(data?.recipes.map((recipe => recipe)))
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;

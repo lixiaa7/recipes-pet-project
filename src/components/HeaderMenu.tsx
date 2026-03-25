@@ -1,8 +1,7 @@
 import LiMenuItem from "./LiMenuItem.tsx";
 import UlMenuItem from "./UlMenuItem";
 import NavLinkMenu from "./NavLink.tsx";
-
-
+import {cuisine} from "../constants/menuItems.tsx";
 export default function HeaderMenu() {
     return (
         <>
@@ -15,6 +14,7 @@ export default function HeaderMenu() {
                     <UlMenuItem>
                         <LiMenuItem>Item1</LiMenuItem>
                         <LiMenuItem>Item1</LiMenuItem>
+                        <LiMenuItem>View All</LiMenuItem>
                     </UlMenuItem>
                 </li>
                 <li className="relative group z-50 px-2.5">
@@ -22,19 +22,23 @@ export default function HeaderMenu() {
                     <UlMenuItem>
                         <LiMenuItem>Item1</LiMenuItem>
                         <LiMenuItem>Item1</LiMenuItem>
+                        <LiMenuItem>View All</LiMenuItem>
                     </UlMenuItem>
                 </li>
                 <li className="relative group z-50 px-2.5">
                     <NavLinkMenu link='/cuisines'>Cuisines</NavLinkMenu>
                     <UlMenuItem>
-                        <LiMenuItem>Item1</LiMenuItem>
-                        <LiMenuItem>Item1</LiMenuItem>
+                        {cuisine.map((cuisine: string) => (
+                            <LiMenuItem key={cuisine}>{cuisine}</LiMenuItem>
+                        ))}
+                        <LiMenuItem>View All</LiMenuItem>
                     </UlMenuItem></li>
                 <li className="relative group z-50 px-2.5">
                     <NavLinkMenu link='/ingredients'>Ingredients</NavLinkMenu>
                     <UlMenuItem>
                         <LiMenuItem>Item1</LiMenuItem>
                         <LiMenuItem>Item1</LiMenuItem>
+                        <LiMenuItem>View All</LiMenuItem>
                     </UlMenuItem></li>
             </ul>
 

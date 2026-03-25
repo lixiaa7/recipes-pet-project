@@ -1,0 +1,1 @@
+export const cuisine: string[] = ['Italian', 'Asian', 'American', 'Mexican', 'Mediterranean', 'Pakistani'];
