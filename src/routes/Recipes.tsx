@@ -1,18 +1,18 @@
 import {useRecipes} from "../hooks/useRecipes.ts";
 import RecipeItem from "../components/RecipeItem.tsx";
+import type {IRecipeDetails} from "../types/IRecipeDetails.types.ts";
 
 export default function RecipesPage() {
     const { data, isLoading, error } = useRecipes();
 
-    console.log(data?.recipes.map((recipe => recipe)))
-
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
+
     return (
-        <div className="max-w-4/5">
-            <ul className="flex justify-center items-center flex-wrap gap-1">
-            {data?.recipes.map((recipe: {}) => (
-                    <li key={recipe.id} className="max-w-1/4 p-2 bg-white rounded-2xl"><RecipeItem recipe={recipe}/></li>
+        <div className="max-w-4/6">
+            <ul className="grid grid-cols-4 gap-3 mt-2.5 mb-2.5 ">
+            {data?.map((recipe: IRecipeDetails) => (
+                    <li key={recipe.id} className="bg-white shadow-md p-4 rounded"><RecipeItem recipe={recipe}/></li>
             ))}
             </ul>
         </div>

@@ -4,6 +4,7 @@ export async function fetchRecipes() {
     if (!res.ok) {
         throw new Error('Failed to fetch recipes');
     }
+    const data = await res.json();
 
-    return res.json();
+    return data.recipes;
 }
