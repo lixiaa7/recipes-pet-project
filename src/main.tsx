@@ -2,16 +2,20 @@ import {StrictMode} from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {Provider} from 'react-redux';
 
-import Recipes from './routes/Recipes.tsx'
-import Categories from './routes/Categories.tsx'
-import Meals from './routes/Meals.tsx'
-import Ingredients from './routes/Ingredients.tsx'
-import CuisinesPage from "./routes/Cuisines.tsx";
-import RecipeDetailsPage from "./routes/RecipeDetails.tsx";
+import Recipes from './routes/recipes/Recipes.tsx'
+import MealsPage from './routes/meals/Meals.tsx'
+import IngredientsPage from './routes/ingredients/Ingredients.tsx'
+import CuisinesPage from "./routes/cuisines/Cuisines.tsx";
+import RecipeDetailsPage from "./routes/recipes/RecipeDetails.tsx";
 
 import './index.css'
 import App from './App.tsx'
+import CuisinesByCategory from './routes/cuisines/./CuisinesByCategory.tsx'
+import IngredientsByCategoryPage from "./routes/ingredients/IngredientsByCategory.tsx";
+import MealsByCategoryPage from "./routes/meals/MealsByCategory.tsx";
+import {store} from "./store/store.ts"
 
 const queryClient = new QueryClient();
 
@@ -21,21 +25,44 @@ const router = createBrowserRouter([
         element: <App/>,
         children: [
             {index: true, element: <Recipes/>},
-            {path: 'recipes/:id', element: <RecipeDetailsPage/>},
-            {path: '/categories', element: <Categories/>},
-            {path: '/meals', element: <Meals/>},
-            {path: '/ingredients', element: <Ingredients/>},
-            {path: '/cuisines', element: <CuisinesPage/>},
+            {
+                path: 'recipes',
+                children: [
+                    {path: ':id', element: <RecipeDetailsPage/>},
+                ]
+            },
+            {
+                path: 'meals',
+                children: [
+                    {index: true, element: <MealsPage/>},
+                    {path: ':mealType', element: <MealsByCategoryPage />},
+                ]
+            },
+            {
+                path: 'ingredients',
+                children: [
+                    {index: true, element: <IngredientsPage/>},
+                    {path: ':ingredient', element: <IngredientsByCategoryPage/>},
+                ]
+            },
+            {
+                path: 'cuisines',
+                children: [
+                    {index: true, element: <CuisinesPage/>},
+                    {path: ':cuisine', element: <CuisinesByCategory category="cuisine" />},
+                ]
+            },
         ],
     },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router}></RouterProvider>
-        </QueryClientProvider>
-
+        <Provider store={store}>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router}></RouterProvider>
+            </QueryClientProvider>
+        </Provider>
 
     </StrictMode>,
 )

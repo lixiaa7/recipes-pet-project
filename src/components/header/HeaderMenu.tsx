@@ -15,26 +15,26 @@ export default function HeaderMenu() {
                     <NavLinkMenu link='/meals'>Meals</NavLinkMenu>
                     <UlMenuItemHeader>
                         {mealTypes.map(meal => (
-                            <LiMenuHeaderItem key={meal}>{meal}</LiMenuHeaderItem>
+                            <LiMenuHeaderItem mainCategory="meals" category={meal} key={meal}>{meal}</LiMenuHeaderItem>
                         ))}
-                        <LiMenuHeaderItem>View All</LiMenuHeaderItem>
+                        <LiMenuHeaderItem mainCategory="meals">View All</LiMenuHeaderItem>
                     </UlMenuItemHeader>
                 </li>
                 <li className="relative group z-50 px-2.5">
                     <NavLinkMenu link='/cuisines'>Cuisines</NavLinkMenu>
                     <UlMenuItemHeader>
                         {cuisine.map((cuisine: string) => (
-                            <LiMenuHeaderItem key={cuisine}>{cuisine}</LiMenuHeaderItem>
+                            <LiMenuHeaderItem key={cuisine} mainCategory="cuisines"  category={cuisine}>{cuisine}</LiMenuHeaderItem>
                         ))}
-                        <LiMenuHeaderItem>View All</LiMenuHeaderItem>
+                        <LiMenuHeaderItem mainCategory="cuisines">View All</LiMenuHeaderItem>
                     </UlMenuItemHeader></li>
                 <li className="relative group z-50 px-2.5">
                     <NavLinkMenu link='/ingredients'>Ingredients</NavLinkMenu>
                     <UlMenuItemHeader>
                         {ingredients.map((ingredient) => (
-                            <LiMenuHeaderItem key={ingredient}>{ingredient}</LiMenuHeaderItem>
+                            <LiMenuHeaderItem key={ingredient} category={ingredient}  mainCategory="ingredients">{ingredient}</LiMenuHeaderItem>
                         ))}
-                        <LiMenuHeaderItem>View All</LiMenuHeaderItem>
+                        <LiMenuHeaderItem mainCategory="ingredients">View All</LiMenuHeaderItem>
                     </UlMenuItemHeader></li>
             </ul>
 

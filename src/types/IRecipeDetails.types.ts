@@ -19,3 +19,6 @@ export interface IRecipeDetails {
 export interface IGroupedCuisines {
     [key: string]: IRecipeDetails[]
 }
+export interface IGroupedMeals {
+    [key: string]: IRecipeDetails[]
+}
