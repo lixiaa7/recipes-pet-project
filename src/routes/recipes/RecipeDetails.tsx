@@ -3,10 +3,14 @@ import {useRecipeDetails} from '../../hooks/useRecipeDetails.ts'
 import timer from "../../assets/images/timer.svg";
 import person from "../../assets/images/person.svg";
 import StarRating from "../../components/StarRating.tsx";
+import {useSelector} from "react-redux";
+import type {RootState} from "../../store/store.ts";
 
 export default function RecipeDetailsPage() {
-    const params = useParams().id;
-    const {data, isLoading} = useRecipeDetails(Number(params));
+    const params = +(useParams().id);
+    const  {isLoading} = useRecipeDetails(Number(params));
+    const items = useSelector((state: RootState) => state.recipes.items);
+    const data = items?.find(item => item.id === params)
 
     return (
         <>
@@ -91,8 +95,10 @@ export default function RecipeDetailsPage() {
                     </div>
                 </div>
 
-                <div className="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)] sm:p-8">
-                    <div className="mb-8 flex flex-col gap-4 border-b border-stone-100 pb-6 sm:flex-row sm:items-end sm:justify-between">
+                <div
+                    className="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-[0_24px_60px_-36px_rgba(15,23,42,0.35)] sm:p-8">
+                    <div
+                        className="mb-8 flex flex-col gap-4 border-b border-stone-100 pb-6 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-500">
                                 Directions
@@ -109,7 +115,8 @@ export default function RecipeDetailsPage() {
                                 key={`${i}-${item}`}
                                 className="flex gap-4 rounded-[1.5rem] border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-stone-50 p-5 shadow-[0_18px_40px_-34px_rgba(234,88,12,0.7)]"
                             >
-                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-stone-900 text-base font-bold text-white shadow-[0_12px_24px_-16px_rgba(15,23,42,0.8)]">
+                                <div
+                                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-stone-900 text-base font-bold text-white shadow-[0_12px_24px_-16px_rgba(15,23,42,0.8)]">
                                     {i + 1}
                                 </div>
                                 <div className="pt-1">

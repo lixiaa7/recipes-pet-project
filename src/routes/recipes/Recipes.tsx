@@ -1,14 +1,24 @@
 import {useRecipes} from "../../hooks/useRecipes.ts";
 import RecipeItem from "../../components/RecipeItem.tsx";
 import type {IRecipeDetails} from "../../types/IRecipeDetails.types.ts";
-import {useSelector} from 'react-redux';
-import {AddRecipeModal} from "../../routes/AddRecipeModal.tsx"
-
+import {useDispatch, useSelector} from 'react-redux';
+import {AddRecipeModal} from "../AddRecipeModal.tsx"
+import {setRecipes} from "../../store/recipesSlice.ts";
+import {useEffect} from "react";
+import type {RootState} from "../../store/store.ts";
 
 export default function RecipesPage() {
-    const {data, isLoading, error} = useRecipes();
-    const isOpen = useSelector((state) => state.modal.isOpen);
+    const {data, isLoading, error, isSuccess} = useRecipes();
+    const isOpen = useSelector((state: RootState) => state.modal.isOpen);
+    const recipes = useSelector((state: RootState) => state.recipes.items)
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (isSuccess && data) {
+            dispatch(setRecipes(data));
+        }
+    }, [isSuccess, data, dispatch]);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
@@ -32,12 +42,12 @@ export default function RecipesPage() {
                             </div>
                             <div
                                 className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-stone-700 shadow-sm ring-1 ring-orange-100">
-                                {data?.length ?? 0} recipes
+                                {recipes?.length ?? 0} recipes
                             </div>
                         </div>
 
                         <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                            {data?.map((recipe: IRecipeDetails) => (
+                            {recipes?.map((recipe: IRecipeDetails) => (
                                 <li key={recipe.id}>
                                     <RecipeItem recipe={recipe}/>
                                 </li>

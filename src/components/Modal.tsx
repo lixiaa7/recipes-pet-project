@@ -1,4 +1,8 @@
-const Modal = () => {
+type ModalProps = {
+    onClose: () => void;
+};
+
+const Modal = ({onClose}: ModalProps) => {
     return (
         <div
             onClick={onClose}
@@ -9,9 +13,7 @@ const Modal = () => {
                 className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
             >
                 <h2 className="mb-3 text-2xl font-bold">Modal window</h2>
-                <p className="mb-6 text-stone-700">
-                    This is one simple modal without any id.
-                </p>
+                <p className="mb-6 text-stone-700">This is one simple modal without any id.</p>
 
                 <button
                     onClick={onClose}
@@ -21,7 +23,6 @@ const Modal = () => {
                 </button>
             </div>
         </div>
-    );
     );
 };
 

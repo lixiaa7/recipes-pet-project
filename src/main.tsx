@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {Provider} from 'react-redux';
+import {HelmetProvider} from 'react-helmet-async';
 
 import Recipes from './routes/recipes/Recipes.tsx'
 import MealsPage from './routes/meals/Meals.tsx'
@@ -16,6 +17,7 @@ import CuisinesByCategory from './routes/cuisines/./CuisinesByCategory.tsx'
 import IngredientsByCategoryPage from "./routes/ingredients/IngredientsByCategory.tsx";
 import MealsByCategoryPage from "./routes/meals/MealsByCategory.tsx";
 import {store} from "./store/store.ts"
+
 
 const queryClient = new QueryClient();
 
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
                 path: 'meals',
                 children: [
                     {index: true, element: <MealsPage/>},
-                    {path: ':mealType', element: <MealsByCategoryPage />},
+                    {path: ':mealType', element: <MealsByCategoryPage/>},
                 ]
             },
             {
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
                 path: 'cuisines',
                 children: [
                     {index: true, element: <CuisinesPage/>},
-                    {path: ':cuisine', element: <CuisinesByCategory category="cuisine" />},
+                    {path: ':cuisine', element: <CuisinesByCategory category="cuisine"/>},
                 ]
             },
         ],
@@ -58,11 +60,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router}></RouterProvider>
-            </QueryClientProvider>
-        </Provider>
-
+        <HelmetProvider>
+            <Provider store={store}>
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router}></RouterProvider>
+                </QueryClientProvider>
+            </Provider>
+        </HelmetProvider>
     </StrictMode>,
 )

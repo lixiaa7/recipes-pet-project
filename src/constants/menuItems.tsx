@@ -4,7 +4,6 @@ export const mealTypes = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert', 'B
 
 export const ingredients = ['Chicken', 'Vegetables', 'Seafood', 'Rice', 'Fruits']
 
-
 export const popularIngredientCards = [
     {
         name: 'Chicken',
@@ -77,3 +76,5 @@ export const popularIngredientCards = [
         accent: 'from-yellow-100 via-amber-50 to-orange-50',
     },
 ] as const;
+
+export const cuisines = ['italian', 'asian','american','mexican','pakistani','japanese','thai','indian','russian','turkish','smoothie','lebanese','korean','moroccan','greek','mediterranean','brazilian',]

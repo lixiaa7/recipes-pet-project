@@ -13,7 +13,7 @@ export interface IRecipeDetails {
     rating: number
     reviewCount: number
     servings: number
-    tags: string[]
+    tags?: string[]
 }
 
 export interface IGroupedCuisines {
