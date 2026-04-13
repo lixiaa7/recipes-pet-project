@@ -5,22 +5,9 @@ import {useRef} from "react";
 import {scrollCategory} from "../../helpers/scrollCategory.ts";
 
 export default function MealsPage() {
-    const {data, isLoading, error} = useRecipes();
+    const {data: recipes, isLoading, error} = useRecipes();
     const sliderRefs = useRef<Record<string, HTMLDivElement | null>>({});
-    const groupedMeals = getGroupedMeals(data);
-
-
-    // const scrollCategory = (category: string, direction: "left" | "right") => {
-    //     const slider = sliderRefs.current[category];
-    //
-    //     if (!slider) return;
-    //
-    //     const offset = slider.clientWidth * 0.82;
-    //     slider.scrollBy({
-    //         left: direction === "right" ? offset : -offset,
-    //         behavior: "smooth",
-    //     });
-    // };
+    const groupedMeals = getGroupedMeals(recipes);
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>{error.message}</p>;

@@ -1,8 +1,10 @@
+import {ingredientCategories} from "../helpers/ingredientCategories.ts";
+
 export const cuisine = ['Italian', 'Asian', 'Indian', 'Mexican', 'Mediterranean', 'Pakistani'];
 
 export const mealTypes = ['Dinner', 'Lunch', 'Breakfast', 'Snack', 'Dessert', 'Beverage', 'Side Dish', 'Appetizer']
 
-export const ingredients = ['Chicken', 'Vegetables', 'Seafood', 'Rice', 'Fruits']
+export const ingredients = ingredientCategories.map((category) => category.label)
 
 export const popularIngredientCards = [
     {

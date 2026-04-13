@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <App/>,
         children: [
-            {index: true, element: <Recipes/>},
+            {index: true, element: <Recipes/>, handle: { title: 'Recipes' }},
             {
                 path: 'recipes',
                 children: [
@@ -36,21 +36,21 @@ const router = createBrowserRouter([
             {
                 path: 'meals',
                 children: [
-                    {index: true, element: <MealsPage/>},
+                    {index: true, element: <MealsPage/>, handle: { title: 'Meals' }},
                     {path: ':mealType', element: <MealsByCategoryPage/>},
                 ]
             },
             {
                 path: 'ingredients',
                 children: [
-                    {index: true, element: <IngredientsPage/>},
+                    {index: true, element: <IngredientsPage/>, handle: { title: 'Ingredients' }},
                     {path: ':ingredient', element: <IngredientsByCategoryPage/>},
                 ]
             },
             {
                 path: 'cuisines',
                 children: [
-                    {index: true, element: <CuisinesPage/>},
+                    {index: true, element: <CuisinesPage/>, handle: { title: 'Cuisines' }},
                     {path: ':cuisine', element: <CuisinesByCategory category="cuisine"/>},
                 ]
             },

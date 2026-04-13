@@ -1,29 +1,64 @@
-import {useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {useNavigate, useParams} from "react-router-dom";
 import {useRecipeDetails} from '../../hooks/useRecipeDetails.ts'
 import timer from "../../assets/images/timer.svg";
 import person from "../../assets/images/person.svg";
 import StarRating from "../../components/StarRating.tsx";
-import {useSelector} from "react-redux";
-import type {RootState} from "../../store/store.ts";
+import {PageTitle} from "../../components/PageTitle.tsx";
+import {deleteRecipe} from "../../store/recipesSlice.ts";
+import type {AppDispatch} from "../../store/store.ts";
 
 export default function RecipeDetailsPage() {
-    const params = +(useParams().id);
-    const  {isLoading} = useRecipeDetails(Number(params));
-    const items = useSelector((state: RootState) => state.recipes.items);
-    const data = items?.find(item => item.id === params)
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+    const recipeId = Number(useParams().id ?? 0);
+    const {data, isLoading, error} = useRecipeDetails(recipeId);
+
+    const handleDeleteRecipe = () => {
+        const isConfirmed = window.confirm(`Delete "${data?.name}" recipe?`);
+
+        if (!isConfirmed) {
+            return;
+        }
+
+        dispatch(deleteRecipe(recipeId));
+        navigate('/', {replace: true});
+    };
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error.message}</p>;
+    }
+
+    if (!data) {
+        return <p>Recipe not found</p>;
+    }
 
     return (
         <>
-            {isLoading && <p>Loading...</p>}
+            <PageTitle title={data.name}/>
             <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
                 <div
-                    className="overflow-hidden rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-amber-50 shadow-[0_24px_80px_-32px_rgba(180,83,9,0.4)]  mb-3.5">
+                    className="mb-3.5 overflow-hidden rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-amber-50 shadow-[0_24px_80px_-32px_rgba(180,83,9,0.4)]">
                     <div className="px-6 py-8 sm:px-8 lg:px-10 lg:py-10">
                         <div className="mb-8 flex flex-col gap-5 border-b border-orange-100 pb-8">
-                            <div className="space-y-3">
-                                <h1 className="max-w-3xl text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
-                                    {data?.name}
-                                </h1>
+                            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                                <div className="space-y-3">
+                                    <h1 className="max-w-3xl text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
+                                        {data.name}
+                                    </h1>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onClick={handleDeleteRecipe}
+                                    className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-red-200 bg-red-50 px-5 text-sm font-semibold text-red-700 transition hover:border-red-500 hover:bg-red-500 hover:text-white"
+                                >
+                                    Delete recipe
+                                </button>
                             </div>
 
                             <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
@@ -33,20 +68,19 @@ export default function RecipeDetailsPage() {
                                     <p>
                                         <span
                                             title="preparation time"
-                                            className="font-semibold text-stone-900">{data?.cookTimeMinutes}</span> min
+                                            className="font-semibold text-stone-900">{data.cookTimeMinutes}</span> min
                                     </p>
                                 </div>
                                 <div className="rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-orange-100">
-                                    <span
-                                        className="font-semibold text-stone-900">{data?.caloriesPerServing}</span> kcal
+                                    <span className="font-semibold text-stone-900">{data.caloriesPerServing}</span> kcal
                                 </div>
                                 <div
                                     className="flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-orange-100">
-                                    <span className="font-semibold text-stone-900">{data?.servings}</span>
+                                    <span className="font-semibold text-stone-900">{data.servings}</span>
                                     <img src={person} alt="person" className="h-5 w-5"/>
                                 </div>
                                 <div className="rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-orange-100">
-                                    <StarRating rating={data?.rating}/>
+                                    <StarRating rating={data.rating}/>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +91,8 @@ export default function RecipeDetailsPage() {
                                 <div
                                     className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/10 to-transparent"/>
                                 <img
-                                    src={data?.image}
-                                    alt={data?.name}
+                                    src={data.image}
+                                    alt={data.name}
                                     className="h-full min-h-[320px] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
                                 />
                             </div>
@@ -76,12 +110,12 @@ export default function RecipeDetailsPage() {
                                     </div>
                                     <div
                                         className="rounded-full bg-orange-100 px-4 py-2 text-sm font-semibold text-orange-700">
-                                        {data?.ingredients.length} items
+                                        {data.ingredients.length} items
                                     </div>
                                 </div>
 
                                 <ul className="grid gap-3 text-stone-700 sm:grid-cols-2">
-                                    {data?.ingredients.map(item => (
+                                    {data.ingredients.map((item) => (
                                         <li
                                             key={item}
                                             className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-medium shadow-[0_10px_30px_-24px_rgba(15,23,42,0.8)]"
@@ -110,7 +144,7 @@ export default function RecipeDetailsPage() {
                     </div>
 
                     <ol className="grid gap-4 lg:grid-cols-2">
-                        {data?.instructions.map((item, i) => (
+                        {data.instructions.map((item, i) => (
                             <li
                                 key={`${i}-${item}`}
                                 className="flex gap-4 rounded-[1.5rem] border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-stone-50 p-5 shadow-[0_18px_40px_-34px_rgba(234,88,12,0.7)]"

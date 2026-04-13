@@ -6,18 +6,21 @@ import {capitalize} from "../../helpers/capitalize.ts";
 import CategoryPage from "../../components/CategoryPage.tsx";
 
 export default function MealsByCategoryPage() {
-    const {data, isLoading, isError} = useRecipes();
+    const {data, isLoading, isError, error} = useRecipes();
     const params = useParams().mealType || "";
-    if (!data) return
 
     const searchedMealType = capitalize(params)
     const groupedMeals = getGroupedMeals(data);
     const recipesByType = getRecipesByMealType(groupedMeals, searchedMealType)
 
     return (
-        <>
-            {data && <CategoryPage data={recipesByType} category={params} params={params} value={params} error={isError}
-                                   isLoading={isLoading}/>}
-        </>
+        <CategoryPage
+            data={recipesByType}
+            category={params}
+            params={params}
+            value={params}
+            error={isError ? error : null}
+            isLoading={isLoading}
+        />
     )
 }

@@ -1,21 +1,8 @@
 import type {RecipeForm} from "../types/RecipeForm.types.ts";
 
-// type RecipeFormForValidation = {
-//     name: string;
-//     image: string;
-//     mealType: string[];
-//     ingredients: string[];
-//     cookTimeMinutes: string;
-//     caloriesPerServing: string;
-//     servings: string;
-//     instructions?: string;
-// };
-
 export function validate(form: RecipeForm, requireInstructions = false) {
     const errors: Record<string, string> = {};
-    const hasInstructions = Array.isArray(form.instructions)
-        ? form.instructions.some((item) => item.trim().length > 0)
-        : typeof form.instructions === "string" && form.instructions.trim().length > 0;
+    const hasInstructions = form.instructions.some((item) => item.trim().length > 0);
 
     if (!form.name.trim()) {
         errors.name = "Title is required";

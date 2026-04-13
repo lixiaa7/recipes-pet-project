@@ -1,5 +1,4 @@
 import {useState, type ChangeEvent, type FormEvent} from "react";
-import {useSelector} from "react-redux";
 import {LabelForm} from "./LabelForm.tsx";
 import {InputForm} from "./InputForm.tsx";
 import {AddedItem} from "./AddedItem.tsx";
@@ -10,7 +9,6 @@ import type {RecipeForm} from "../types/RecipeForm.types.ts";
 import {useAddRecipe} from "../hooks/useAddRecipe.ts";
 import {useDispatch} from "react-redux";
 import {closeModal} from "../store/modalSlice.ts";
-import type {RootState} from "../store/store.ts";
 
 type ListField = "ingredients" | "instructions";
 
@@ -18,6 +16,7 @@ const initialForm: RecipeForm = {
     name: "",
     difficulty: "medium",
     cookTimeMinutes: 20,
+    prepTimeMinutes: 10,
     image: "",
     mealType: [],
     ingredients: [],
@@ -39,7 +38,6 @@ export const NewRecipeForm = () => {
     const [step, setStep] = useState("");
     const dispatch = useDispatch();
     const addRecipeMutation = useAddRecipe();
-    const data = useSelector((state: RootState) => state.recipes.items);
 
     const canAddString = (str: string) => str.trim().length > 0;
 
@@ -129,8 +127,6 @@ export const NewRecipeForm = () => {
             console.error("Failed to create recipe", error);
         }
     };
-    console.log(data)
-
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid gap-4 md:grid-cols-2">

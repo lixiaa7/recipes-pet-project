@@ -1,4 +1,8 @@
-export const scrollCategory = (category: string, direction: "left" | "right", sliderRefs) => {
+type SliderRefs = {
+    current: Record<string, HTMLDivElement | null>;
+};
+
+export const scrollCategory = (category: string, direction: "left" | "right", sliderRefs: SliderRefs) => {
     const slider = sliderRefs.current[category];
 
     if (!slider) return;

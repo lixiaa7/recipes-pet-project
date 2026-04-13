@@ -1,19 +1,29 @@
 import RecipeItem from "./RecipeItem.tsx";
+import type {IRecipeDetails} from "../types/IRecipeDetails.types.ts";
 
-export default function CategoryPage({params, value, category, isLoading, error, data}) {
+type CategoryPageProps = {
+    params?: string;
+    value?: string;
+    category: string;
+    isLoading: boolean;
+    error: Error | null;
+    data?: IRecipeDetails[];
+};
+
+export default function CategoryPage({params, value, category, isLoading, error, data}: CategoryPageProps) {
 
     return (
     <>
         <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
             <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-stone-900">
-                {params ? value[0].toUpperCase() + value.slice(1) : `${category}`}
+                {params && value ? value[0].toUpperCase() + value.slice(1) : `${category}`}
             </h1>
 
             {isLoading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
 
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                {data?.map(recipe => (
+                {data?.map((recipe) => (
                     <RecipeItem key={recipe.id} recipe={recipe}/>
                 ))}
             </div>

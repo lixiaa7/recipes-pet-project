@@ -5,12 +5,13 @@ import RecipeItem from "../../components/RecipeItem.tsx";
 import {scrollCategory} from "../../helpers/scrollCategory.ts";
 
 export default function CuisinesPage() {
-    const {data} = useRecipes();
+    const {data, isLoading, error} = useRecipes();
     const sliderRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-    if (!data) return <p>Loading...</p>;
-    const groupedCuisines = getGroupedCuisines(data);
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>{error.message}</p>;
 
+    const groupedCuisines = getGroupedCuisines(data);
 
     return (
         <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
