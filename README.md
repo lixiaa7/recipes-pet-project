@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+# Recipes pet project!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[View yje project here!](https://my-project.vercel.app)
 
-Currently, two official plugins are available:
+#Summary
+Developed a recipe management application with a focus on data fetching, state management, and user interaction.
+Integrated external API data into a centralized Redux store and implemented simulated CRUD operations such as adding and removing recipes.
+Emphasized clean data flow, predictable state updates, and responsive UI behavior.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# 💡Technologies:
+* ReactJS
+* Typescript
+* Tailwind CSS
+* Tanstack Query
+* Redux Toolkit
+* React router
 
-## React Compiler
+# 🚀Features
+* Responsive design
+* Create recipe
+* Delete recipe
+* Dynamic routing 
+* Form handling
+* Basic filtering 
+* Seacrh recipes
+* Global state management
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Demo GIF
 
-## Expanding the ESLint configuration
+Desktop
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Mobile
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Thanks for checking out my project! Any && all feedback is appreciated!
