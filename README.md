@@ -27,8 +27,8 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 
 **Demo GIF**
 
-<sub>Desktop</sub>
+**Desktop**
 
-<sub>Mobile</sub>
+**Mobile**
 
 **Thanks for checking out my project! Any && all feedback is appreciated!**
