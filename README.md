@@ -1,13 +1,13 @@
 # Recipes pet project!
 
-[View yje project here!](https://my-project.vercel.app)
+[View the project here!](https://my-project.vercel.app)
 
-#Summary
+**Summary**
 Developed a recipe management application with a focus on data fetching, state management, and user interaction.
 Integrated external API data into a centralized Redux store and implemented simulated CRUD operations such as adding and removing recipes.
 Emphasized clean data flow, predictable state updates, and responsive UI behavior.
 
-# 💡Technologies:
+**💡Technologies:**
 * ReactJS
 * Typescript
 * Tailwind CSS
@@ -15,7 +15,7 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 * Redux Toolkit
 * React router
 
-# 🚀Features
+**🚀Features**
 * Responsive design
 * Create recipe
 * Delete recipe
@@ -25,10 +25,10 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 * Seacrh recipes
 * Global state management
 
-# Demo GIF
+**Demo GIF**
 
-Desktop
+<sub>Desktop</sub>
 
-Mobile
+<sub>Mobile</sub>
 
-# Thanks for checking out my project! Any && all feedback is appreciated!
+**Thanks for checking out my project! Any && all feedback is appreciated!**
