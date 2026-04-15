@@ -2,7 +2,7 @@
 
 [View the project here!](https://my-project.vercel.app)
 
-**Summary**
+**Summary**  
 Developed a recipe management application with a focus on data fetching, state management, and user interaction.
 Integrated external API data into a centralized Redux store and implemented simulated CRUD operations such as adding and removing recipes.
 Emphasized clean data flow, predictable state updates, and responsive UI behavior.
