@@ -1,6 +1,6 @@
 # Recipes pet project!
 
-[View the project here!](https://my-project.vercel.app)
+[View the project here!](https://recipes-pet-project.vercel.app/)
 
 **Summary**  
 Developed a recipe management application with a focus on data fetching, state management, and user interaction.
