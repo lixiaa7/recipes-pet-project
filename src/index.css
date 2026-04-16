@@ -1,5 +1,36 @@
 @import "tailwindcss";
 
+html,
+body,
+#root {
+    min-height: 100%;
+    width: 100%;
+    overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
     font-family: "Open Sans", sans-serif;
+    overflow-x: clip;
+}
+
+img,
+svg,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
 }

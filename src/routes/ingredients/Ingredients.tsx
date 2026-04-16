@@ -245,17 +245,17 @@ export default function IngredientsPage() {
                                                 <li key={ingredient.slug}>
                                                     <Link
                                                         to={`/ingredients/${ingredient.slug}`}
-                                                        className="group flex h-full items-center justify-between gap-3 rounded-2xl border border-stone-100 bg-stone-50/70 px-4 py-3 transition hover:border-orange-200 hover:bg-orange-50"
+                                                        className="group flex h-full min-w-0 items-center justify-between gap-3 rounded-2xl border border-stone-100 bg-stone-50/70 px-4 py-3 transition hover:border-orange-200 hover:bg-orange-50"
                                                     >
-                                                        <div>
-                                                            <p className="font-semibold text-stone-900 transition group-hover:text-orange-700">
+                                                        <div className="min-w-0">
+                                                            <p className="truncate font-semibold text-stone-900 transition group-hover:text-orange-700">
                                                                 {ingredient.label}
                                                             </p>
-                                                            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-500">
+                                                            <p className="mt-1 truncate text-xs uppercase tracking-[0.18em] text-stone-500">
                                                                 {ingredient.recipeIds.length} recipes
                                                             </p>
                                                         </div>
-                                                        <span className="text-sm font-medium text-stone-400 transition group-hover:text-stone-700">
+                                                        <span className="shrink-0 text-sm font-medium text-stone-400 transition group-hover:text-stone-700">
                                                             Open
                                                         </span>
                                                     </Link>

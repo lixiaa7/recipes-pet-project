@@ -1,5 +1,5 @@
-import {useMemo, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useMemo, useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import type {RootState} from "../../store/store.ts";
 import type {IRecipeDetails} from "../../types/IRecipeDetails.types.ts";
@@ -12,10 +12,22 @@ type HeaderInputProps = {
 
 export default function HeaderInput({compact = false, onCompactOpenChange}: HeaderInputProps) {
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchValue, setSearchValue] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const [isCompactOpen, setIsCompactOpen] = useState(false);
     const storedRecipes = useSelector((state: RootState) => state.recipes.items) as IRecipeDetails[];
+
+    const closeSearch = () => {
+        setIsFocused(false);
+        setIsCompactOpen(false);
+        onCompactOpenChange?.(false);
+    };
+
+    useEffect(() => {
+        closeSearch();
+        setSearchValue("");
+    }, [location.pathname]);
 
     const searchTerms = searchValue
         .toLowerCase()
@@ -45,24 +57,19 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
 
         navigate(`/recipes/${matchedRecipes[0].id}`);
         setSearchValue("");
-        setIsFocused(false);
-        setIsCompactOpen(false);
-        onCompactOpenChange?.(false);
+        closeSearch();
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
-            setIsFocused(false);
-            setIsCompactOpen(false);
-            onCompactOpenChange?.(false);
+            closeSearch();
         }
     };
 
-    const handleRecipeSelect = () => {
+    const handleRecipeSelect = (recipeId: number) => {
+        navigate(`/recipes/${recipeId}`);
         setSearchValue("");
-        setIsFocused(false);
-        setIsCompactOpen(false);
-        onCompactOpenChange?.(false);
+        closeSearch();
     };
 
     const isSearchVisible = compact ? isCompactOpen : true;
@@ -73,6 +80,11 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
             className={`group relative flex items-center justify-center ${compact ? "w-full justify-end" : "w-full pt-0.5 min-[640px]:pt-1 min-[930px]:w-[280px] min-[1100px]:w-[320px] min-[930px]:pt-0"}`}
             onFocus={() => setIsFocused(true)}
             onBlur={handleBlur}
+            onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                    closeSearch();
+                }
+            }}
         >
             {compact ? (
                 <form onSubmit={handleSubmit} className={`flex ${isSearchVisible ? "w-full" : "w-auto justify-end"}`}>
@@ -93,8 +105,10 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
                             onClick={() => {
                                 const nextState = !isCompactOpen;
                                 setIsCompactOpen(nextState);
+                                setIsFocused(nextState);
                                 onCompactOpenChange?.(nextState);
                             }}
+                            aria-expanded={isSearchVisible}
                             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/0 bg-white/0 transition hover:border-orange-300/60"
                         >
                             <img src={searchIcon} alt="" className="h-5 w-5 invert" />
@@ -116,23 +130,29 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
             )}
 
             {shouldShowResults && (
-                <div className={`absolute z-50 overflow-hidden border border-stone-700 bg-stone-900 shadow-[0_22px_55px_-32px_rgba(15,23,42,0.8)] ${compact ? "left-0 right-0 top-[calc(100%+0.5rem)] rounded-[22px]" : "left-0 right-0 top-[calc(100%+0.625rem)] rounded-[22px] min-[930px]:top-full min-[930px]:rounded-none min-[930px]:border-0 min-[930px]:shadow-none"}`}>
+                <div className={`absolute z-50 max-h-[min(60vh,24rem)] overflow-y-auto overflow-x-hidden overscroll-contain border border-stone-700 bg-stone-900 shadow-[0_22px_55px_-32px_rgba(15,23,42,0.8)] ${compact ? "left-0 right-0 top-[calc(100%+0.5rem)] rounded-[22px]" : "left-0 right-0 top-[calc(100%+0.625rem)] rounded-[22px] min-[930px]:top-full min-[930px]:rounded-none min-[930px]:border-0 min-[930px]:shadow-none"}`}>
                     {matchedRecipes.length > 0 ? (
                         <ul className="bg-stone-900">
                             {matchedRecipes.map((recipe) => (
                                 <li key={recipe.id}>
                                     <Link
                                         to={`/recipes/${recipe.id}`}
-                                        onClick={handleRecipeSelect}
+                                        onPointerDown={(event) => {
+                                            event.preventDefault();
+                                            handleRecipeSelect(recipe.id);
+                                        }}
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                        }}
                                         className="flex items-center justify-between gap-3 px-4 py-3 text-left transition hover:bg-stone-800"
                                     >
-                                        <div>
-                                            <p className="font-light text-white">{recipe.name}</p>
-                                            <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400">
+                                        <div className="min-w-0 flex-1">
+                                            <p className="truncate font-light text-white">{recipe.name}</p>
+                                            <p className="mt-1 truncate text-xs uppercase tracking-[0.18em] text-stone-400">
                                                 {recipe.cuisine}
                                             </p>
                                         </div>
-                                        <span className="text-sm text-stone-400">Open</span>
+                                        <span className="shrink-0 text-sm text-stone-400">Open</span>
                                     </Link>
                                 </li>
                             ))}

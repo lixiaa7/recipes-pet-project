@@ -18,7 +18,7 @@ function App() {
         <>
             <PageTitle title={title}/>
             {isOpen && <AddRecipeModal/>}
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen overflow-x-clip bg-gray-50">
                 <Header/>
                 <div className="w-full flex justify-center items-start text-left">
                     <Outlet/>

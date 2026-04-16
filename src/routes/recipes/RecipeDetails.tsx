@@ -48,7 +48,7 @@ export default function RecipeDetailsPage() {
                         <div className="mb-8 flex flex-col gap-5 border-b border-orange-100 pb-8">
                             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                                 <div className="space-y-3">
-                                    <h1 className="max-w-3xl text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
+                                    <h1 className="max-w-3xl break-words text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
                                         {data.name}
                                     </h1>
                                 </div>
@@ -100,8 +100,8 @@ export default function RecipeDetailsPage() {
 
                             <div
                                 className="flex min-h-[320px] flex-col rounded-[1.75rem] border border-orange-100 bg-white/95 p-6 shadow-[0_24px_60px_-36px_rgba(234,88,12,0.45)] backdrop-blur-sm sm:p-8">
-                                <div className="mb-6 flex items-center justify-between gap-4">
-                                    <div>
+                                <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+                                    <div className="min-w-0">
                                         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-500">
                                             Ingredients
                                         </p>
@@ -119,7 +119,7 @@ export default function RecipeDetailsPage() {
                                     {data.ingredients.map((item, index) => (
                                         <li
                                             key={`${index}-${item}`}
-                                            className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-medium shadow-[0_10px_30px_-24px_rgba(15,23,42,0.8)]"
+                                            className="break-words rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-medium shadow-[0_10px_30px_-24px_rgba(15,23,42,0.8)]"
                                         >
                                             {item}
                                         </li>
@@ -154,11 +154,11 @@ export default function RecipeDetailsPage() {
                                     className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-stone-900 text-base font-bold text-white shadow-[0_12px_24px_-16px_rgba(15,23,42,0.8)]">
                                     {i + 1}
                                 </div>
-                                <div className="pt-1">
+                                <div className="min-w-0 pt-1">
                                     <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">
                                         Step {i + 1}
                                     </p>
-                                    <p className="text-sm leading-7 text-stone-700 sm:text-base">
+                                    <p className="break-words text-sm leading-7 text-stone-700 sm:text-base">
                                         {item}
                                     </p>
                                 </div>
