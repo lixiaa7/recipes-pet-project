@@ -8,7 +8,7 @@ export const AddRecipeModal = () => {
     return (
         <div
             onClick={() => dispatch(closeModal())}
-            className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/55 px-4 py-8"
+            className="fixed inset-0 z-[80] overflow-y-auto bg-stone-950/55 px-4 py-8"
         >
             <div className="flex min-h-full items-center justify-center">
                 <div

@@ -20,7 +20,7 @@ export default function HeaderMenu({mobile = false, drawer = false, onItemClick}
             <li className={mobile ? "" : "px-2.5"}>
                 <NavLinkMenu link='/' onClick={onItemClick} className={drawer ? "text-base tracking-[0.08em]" : ""}>All recipes</NavLinkMenu>
             </li>
-            <li className={`relative group ${mobile ? "" : "z-50 px-2.5"}`}>
+            <li className={`relative group ${mobile ? "" : "px-2.5"}`}>
                 <NavLinkMenu link='/meals' onClick={onItemClick} className={drawer ? "text-base tracking-[0.08em]" : ""}>Meals</NavLinkMenu>
                 {!mobile && (
                     <UlMenuItemHeader>
@@ -31,7 +31,7 @@ export default function HeaderMenu({mobile = false, drawer = false, onItemClick}
                     </UlMenuItemHeader>
                 )}
             </li>
-            <li className={`relative group ${mobile ? "" : "z-50 px-2.5"}`}>
+            <li className={`relative group ${mobile ? "" : "px-2.5"}`}>
                 <NavLinkMenu link='/cuisines' onClick={onItemClick} className={drawer ? "text-base tracking-[0.08em]" : ""}>Cuisines</NavLinkMenu>
                 {!mobile && (
                     <UlMenuItemHeader>
@@ -42,7 +42,7 @@ export default function HeaderMenu({mobile = false, drawer = false, onItemClick}
                     </UlMenuItemHeader>
                 )}
             </li>
-            <li className={`relative group ${mobile ? "" : "z-50 px-2.5"}`}>
+            <li className={`relative group ${mobile ? "" : "px-2.5"}`}>
                 <NavLinkMenu link='/ingredients' onClick={onItemClick} className={drawer ? "text-base tracking-[0.08em]" : ""}>Ingredients</NavLinkMenu>
                 {!mobile && (
                     <UlMenuItemHeader>
