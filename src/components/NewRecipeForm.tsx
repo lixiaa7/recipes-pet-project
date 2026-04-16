@@ -4,36 +4,20 @@ import {InputForm} from "./InputForm.tsx";
 import {AddedItem} from "./AddedItem.tsx";
 import {mealTypes, cuisines} from "../constants/menuItems.tsx";
 import {capitalize} from "../helpers/capitalize.ts";
+import {createInitialRecipeForm} from "../helpers/createInitialRecipeForm.ts";
 import {validate} from "../helpers/validate.ts";
 import type {RecipeForm} from "../types/RecipeForm.types.ts";
 import {useAddRecipe} from "../hooks/useAddRecipe.ts";
 import {useDispatch} from "react-redux";
 import {closeModal} from "../store/modalSlice.ts";
+import {coerceRecipeFormValue} from "../helpers/coerceRecipeFormValue.ts";
 
 type ListField = "ingredients" | "instructions";
-
-const initialForm: RecipeForm = {
-    name: "",
-    difficulty: "medium",
-    cookTimeMinutes: 20,
-    prepTimeMinutes: 10,
-    image: "",
-    mealType: [],
-    ingredients: [],
-    instructions: [],
-    servings: 2,
-    cuisine: "Asian",
-    caloriesPerServing: 250,
-    id: Date.now(),
-    userId: Math.floor(Math.random() * 1000),
-    rating: +(Math.random() + 4).toFixed(1),
-    reviewCount: Math.floor(Math.random() * 1000),
-};
 
 export const NewRecipeForm = () => {
     const [ingredient, setIngredient] = useState("");
     const [ready, setReady] = useState(false);
-    const [form, setForm] = useState<RecipeForm>(initialForm);
+    const [form, setForm] = useState<RecipeForm>(() => createInitialRecipeForm());
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [step, setStep] = useState("");
     const dispatch = useDispatch();
@@ -70,6 +54,7 @@ export const NewRecipeForm = () => {
         }));
         resetValue();
         clearError(field);
+        addRecipeMutation.reset();
     }
 
     function handleDeleteListItem(field: ListField, itemToDelete: string) {
@@ -77,20 +62,21 @@ export const NewRecipeForm = () => {
             ...prev,
             [field]: prev[field].filter((item) => item !== itemToDelete),
         }));
+        addRecipeMutation.reset();
     }
 
     function handleChange(
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     ) {
         const {name, value} = event.target;
-        const isNumber = !isNaN(Number(value));
 
         setForm((prev) => ({
             ...prev,
-            [name]: isNumber ? +value : value,
+            [name]: coerceRecipeFormValue(name, value),
         }));
 
         clearError(name);
+        addRecipeMutation.reset();
     }
 
     function handleChangeMealType(event: ChangeEvent<HTMLInputElement>) {
@@ -103,6 +89,7 @@ export const NewRecipeForm = () => {
                 : prev.mealType.filter((item) => item !== value),
         }));
         clearError("mealType");
+        addRecipeMutation.reset();
     }
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -121,7 +108,13 @@ export const NewRecipeForm = () => {
         }
 
         try {
+            addRecipeMutation.reset();
             await addRecipeMutation.mutateAsync(form);
+            setForm(createInitialRecipeForm());
+            setIngredient("");
+            setStep("");
+            setReady(false);
+            setErrors({});
             dispatch(closeModal());
         } catch (error) {
             console.error("Failed to create recipe", error);
@@ -365,11 +358,20 @@ export const NewRecipeForm = () => {
 
             <div
                 className="flex flex-col gap-3 border-t border-stone-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm text-stone-500">
-                    {ready
-                        ? "Final step: add instructions and create the recipe."
-                        : "Fill the basics first, then continue to instructions."}
-                </p>
+                <div className="text-sm">
+                    <p className="text-stone-500">
+                        {ready
+                            ? "Final step: add instructions and create the recipe."
+                            : "Fill the basics first, then continue to instructions."}
+                    </p>
+                    {addRecipeMutation.isError && (
+                        <p className="mt-2 text-red-600">
+                            {addRecipeMutation.error instanceof Error
+                                ? addRecipeMutation.error.message
+                                : "Failed to create recipe. Please try again."}
+                        </p>
+                    )}
+                </div>
                 <button
                     type="submit"
                     disabled={addRecipeMutation.isPending}

@@ -6,6 +6,11 @@ interface RecipesState {
     hasHydrated: boolean;
 }
 
+const getNextAvailableRecipeId = (recipes: IRecipeDetails[]) => {
+    const maxId = recipes.reduce((currentMax, recipe) => Math.max(currentMax, recipe.id), 0);
+    return maxId + 1;
+};
+
 const initialState: RecipesState = {
     items: [],
     hasHydrated: false,
@@ -37,7 +42,16 @@ const recipesSlice = createSlice({
             state.hasHydrated = true;
         },
         addRecipe(state, action: PayloadAction<IRecipeDetails>) {
-            state.items.push(action.payload);
+            const hasSameId = state.items.some((item) => item.id === action.payload.id);
+
+            state.items.push(
+                hasSameId
+                    ? {
+                        ...action.payload,
+                        id: getNextAvailableRecipeId(state.items),
+                    }
+                    : action.payload,
+            );
         },
         deleteRecipe(state, action: PayloadAction<number>) {
             state.items = state.items.filter((item) => item.id !== action.payload);

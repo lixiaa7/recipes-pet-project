@@ -6,6 +6,7 @@ import {popularIngredientCards} from "../../constants/menuItems.tsx";
 import {alphabet} from "../../helpers/alphabet.ts";
 import {getIngredientsCatalog, ingredientToSlug} from "../../helpers/ingredientsCatalog.ts";
 import {ingredientCategories} from "../../helpers/ingredientCategories.ts";
+import Loader from "../../components/Loader.tsx";
 
 export default function IngredientsPage() {
     const {data: recipes, isLoading, error} = useRecipes();
@@ -35,7 +36,7 @@ export default function IngredientsPage() {
 
     const lettersWithIngredients = alphabet.filter((letter) => groupedIngredients[letter]?.length > 0);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loader label="Organizing ingredients" />;
     if (error) return <p>{error.message}</p>;
 
     return (

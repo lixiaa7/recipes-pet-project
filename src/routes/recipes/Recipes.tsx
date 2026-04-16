@@ -1,20 +1,16 @@
 import {useRecipes} from "../../hooks/useRecipes.ts";
 import RecipeItem from "../../components/RecipeItem.tsx";
 import type {IRecipeDetails} from "../../types/IRecipeDetails.types.ts";
-import {useSelector} from 'react-redux';
-import {AddRecipeModal} from "../AddRecipeModal.tsx"
-import type {RootState} from "../../store/store.ts";
+import Loader from "../../components/Loader.tsx";
 
 export default function RecipesPage() {
     const {data: recipes, isLoading, error} = useRecipes();
-    const isOpen = useSelector((state: RootState) => state.modal.isOpen);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loader label="Curating the recipe board" />;
     if (error) return <p>{error.message}</p>;
 
     return (
         <>
-            {isOpen && <AddRecipeModal/>}
             <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 <section
                     className="overflow-hidden rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-amber-50 shadow-[0_24px_80px_-32px_rgba(180,83,9,0.35)]">

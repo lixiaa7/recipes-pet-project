@@ -8,6 +8,7 @@ import {
     getIngredientCategory,
     getRecipesByIngredientCategory,
 } from "../../helpers/ingredientCategories.ts";
+import Loader from "../../components/Loader.tsx";
 
 export default function IngredientsByCategoryPage() {
     const params = useParams().ingredient || "";
@@ -19,7 +20,7 @@ export default function IngredientsByCategoryPage() {
     const pageTitle = ingredientCategory?.label ?? capitalize(params);
     const pageDescription = ingredientCategory?.description ?? "Recipes that use this ingredient.";
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loader label="Sorting recipes by ingredient" />;
     if (error) return <p>{error.message}</p>;
 
     return (

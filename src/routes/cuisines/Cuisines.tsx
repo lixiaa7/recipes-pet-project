@@ -3,12 +3,13 @@ import {useRecipes} from "../../hooks/useRecipes.ts";
 import {getGroupedCuisines} from "../../helpers/getGroupedCuisines.ts";
 import RecipeItem from "../../components/RecipeItem.tsx";
 import {scrollCategory} from "../../helpers/scrollCategory.ts";
+import Loader from "../../components/Loader.tsx";
 
 export default function CuisinesPage() {
     const {data, isLoading, error} = useRecipes();
     const sliderRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loader label="Collecting cuisine ideas" />;
     if (error) return <p>{error.message}</p>;
 
     const groupedCuisines = getGroupedCuisines(data);

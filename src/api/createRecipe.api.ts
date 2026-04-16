@@ -1,6 +1,6 @@
 import type {RecipeForm} from "../types/RecipeForm.types.ts";
 
-export async function createRecipe(recipe: RecipeForm) {
+export async function createRecipe(recipe: RecipeForm): Promise<Partial<RecipeForm>> {
     const response = await fetch('https://dummyjson.com/recipes/add', {
         method: 'POST',
         headers: {

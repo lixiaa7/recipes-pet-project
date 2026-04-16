@@ -9,8 +9,11 @@ export function useAddRecipe() {
 
     return useMutation({
         mutationFn: createRecipe,
-        onSuccess: (_data, newRecipe: RecipeForm) => {
-            dispatch(addRecipe(newRecipe));
+        onSuccess: (createdRecipe, newRecipe: RecipeForm) => {
+            dispatch(addRecipe({
+                ...newRecipe,
+                ...createdRecipe,
+            }));
         },
     });
 }

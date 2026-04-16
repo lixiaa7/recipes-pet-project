@@ -5,6 +5,7 @@ import timer from "../../assets/images/timer.svg";
 import person from "../../assets/images/person.svg";
 import StarRating from "../../components/StarRating.tsx";
 import {PageTitle} from "../../components/PageTitle.tsx";
+import Loader from "../../components/Loader.tsx";
 import {deleteRecipe} from "../../store/recipesSlice.ts";
 import type {AppDispatch} from "../../store/store.ts";
 
@@ -26,7 +27,7 @@ export default function RecipeDetailsPage() {
     };
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <Loader label="Plating the recipe details" />;
     }
 
     if (error) {
@@ -85,7 +86,7 @@ export default function RecipeDetailsPage() {
                             </div>
                         </div>
 
-                        <div className="grid items-stretch gap-6 lg:grid-cols-2">
+                        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)]">
                             <div
                                 className="group relative overflow-hidden rounded-[1.75rem] bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] ring-1 ring-stone-200">
                                 <div
@@ -93,7 +94,7 @@ export default function RecipeDetailsPage() {
                                 <img
                                     src={data.image}
                                     alt={data.name}
-                                    className="h-full min-h-[320px] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                                    className="h-[300px] w-full object-cover transition duration-500 group-hover:scale-[1.02] sm:h-[340px] lg:h-[360px] xl:h-[390px]"
                                 />
                             </div>
 
@@ -115,9 +116,9 @@ export default function RecipeDetailsPage() {
                                 </div>
 
                                 <ul className="grid gap-3 text-stone-700 sm:grid-cols-2">
-                                    {data.ingredients.map((item) => (
+                                    {data.ingredients.map((item, index) => (
                                         <li
-                                            key={item}
+                                            key={`${index}-${item}`}
                                             className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm font-medium shadow-[0_10px_30px_-24px_rgba(15,23,42,0.8)]"
                                         >
                                             {item}

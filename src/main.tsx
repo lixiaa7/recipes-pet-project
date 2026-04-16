@@ -17,6 +17,7 @@ import CuisinesByCategory from './routes/cuisines/./CuisinesByCategory.tsx'
 import IngredientsByCategoryPage from "./routes/ingredients/IngredientsByCategory.tsx";
 import MealsByCategoryPage from "./routes/meals/MealsByCategory.tsx";
 import {store} from "./store/store.ts"
+import ErrorPage from "./routes/ErrorPage.tsx";
 
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <App/>,
+        errorElement: <ErrorPage/>,
         children: [
             {index: true, element: <Recipes/>, handle: { title: 'Recipes' }},
             {

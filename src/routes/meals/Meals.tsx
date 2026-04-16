@@ -3,13 +3,14 @@ import RecipeItem from "../../components/RecipeItem.tsx";
 import {getGroupedMeals} from "../../helpers/getGroupedMeals.ts";
 import {useRef} from "react";
 import {scrollCategory} from "../../helpers/scrollCategory.ts";
+import Loader from "../../components/Loader.tsx";
 
 export default function MealsPage() {
     const {data: recipes, isLoading, error} = useRecipes();
     const sliderRefs = useRef<Record<string, HTMLDivElement | null>>({});
     const groupedMeals = getGroupedMeals(recipes);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loader label="Gathering meal collections" />;
     if (error) return <p>{error.message}</p>;
 
     return (
