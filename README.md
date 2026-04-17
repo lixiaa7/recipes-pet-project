@@ -30,7 +30,7 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 **Desktop**
 
 **Mobile**
-https://github.com/user-attachments/assets/49407152-7a5c-43ba-b270-36001be98eab
+![Demo](./src/assets/images/recipes-mobile.MP4)
 
 
 
