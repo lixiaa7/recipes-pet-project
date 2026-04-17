@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import type {RootState} from "../../store/store.ts";
 import type {IRecipeDetails} from "../../types/IRecipeDetails.types.ts";
@@ -77,7 +77,7 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
 
     return (
         <div
-            className={`group relative flex items-center justify-center ${compact ? "w-full justify-end" : "w-full pt-0.5 min-[640px]:pt-1 min-[930px]:w-[280px] min-[1100px]:w-[320px] min-[930px]:pt-0"}`}
+            className={`group relative min-w-0 flex items-center justify-center ${compact ? "w-full justify-end" : "w-full pt-0.5 min-[640px]:pt-1 min-[930px]:w-[280px] min-[1100px]:w-[320px] min-[930px]:pt-0"}`}
             onFocus={() => setIsFocused(true)}
             onBlur={handleBlur}
             onKeyDown={(event) => {
@@ -87,8 +87,8 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
             }}
         >
             {compact ? (
-                <form onSubmit={handleSubmit} className={`flex ${isSearchVisible ? "w-full" : "w-auto justify-end"}`}>
-                    <div className={`flex h-11 items-center overflow-hidden rounded-full border border-white/18 bg-white/6 transition-[width,padding] duration-200 ${isSearchVisible ? "w-full pl-4 pr-1" : "w-11 px-0"}`}>
+                <form onSubmit={handleSubmit} className={`min-w-0 flex ${isSearchVisible ? "w-full" : "w-auto justify-end"}`}>
+                    <div className={`flex h-11 min-w-0 items-center overflow-hidden rounded-full border border-white/18 bg-white/6 transition-[width,padding] duration-200 ${isSearchVisible ? "w-full pl-4 pr-1" : "w-11 px-0"}`}>
                         {isSearchVisible && (
                             <input
                                 autoFocus
@@ -96,7 +96,7 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
                                 value={searchValue}
                                 onChange={(event) => setSearchValue(event.target.value)}
                                 placeholder="Search recipes"
-                                className="min-w-0 flex-1 bg-transparent pr-3 text-sm text-white placeholder:text-stone-400 focus:text-orange-400 focus:outline-none"
+                                className="min-w-0 flex-1 bg-transparent pr-3 text-base text-white placeholder:text-stone-400 focus:text-orange-400 focus:outline-none min-[640px]:text-sm"
                             />
                         )}
                         <button
@@ -123,7 +123,7 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
                             value={searchValue}
                             onChange={(event) => setSearchValue(event.target.value)}
                             placeholder="Search recipes"
-                            className="w-full bg-transparent px-0 py-3.5 text-white placeholder:text-stone-400 focus:text-orange-400 focus:outline-none min-[640px]:py-4 min-[930px]:px-2 min-[930px]:py-1.5"
+                            className="w-full bg-transparent px-0 py-3.5 text-base text-white placeholder:text-stone-400 focus:text-orange-400 focus:outline-none min-[640px]:py-4 min-[640px]:text-sm min-[930px]:px-2 min-[930px]:py-1.5"
                         />
                     </div>
                 </form>
@@ -135,16 +135,13 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
                         <ul className="bg-stone-900">
                             {matchedRecipes.map((recipe) => (
                                 <li key={recipe.id}>
-                                    <Link
-                                        to={`/recipes/${recipe.id}`}
-                                        onPointerDown={(event) => {
-                                            event.preventDefault();
-                                            handleRecipeSelect(recipe.id);
-                                        }}
-                                        onClick={(event) => {
+                                    <button
+                                        type="button"
+                                        onMouseDown={(event) => {
                                             event.preventDefault();
                                         }}
-                                        className="flex items-center justify-between gap-3 px-4 py-3 text-left transition hover:bg-stone-800"
+                                        onClick={() => handleRecipeSelect(recipe.id)}
+                                        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition hover:bg-stone-800"
                                     >
                                         <div className="min-w-0 flex-1">
                                             <p className="truncate font-light text-white">{recipe.name}</p>
@@ -153,7 +150,7 @@ export default function HeaderInput({compact = false, onCompactOpenChange}: Head
                                             </p>
                                         </div>
                                         <span className="shrink-0 text-sm text-stone-400">Open</span>
-                                    </Link>
+                                    </button>
                                 </li>
                             ))}
                         </ul>
