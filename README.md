@@ -25,8 +25,6 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 * Seacrh recipes
 * Global state management
 
-**Demo GIF**
-
 **Desktop**
 <p align="center">
   <img src="./src/assets/images/recipe-desktop.gif" width="700" />
