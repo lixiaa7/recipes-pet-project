@@ -35,7 +35,7 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 
 **Mobile**
 <p align="center">
-  <img src="./src/assets/images/recipes-mobile.gif" width="400" />
+  <img src="./src/assets/images/recipes-mobile.gif" width="300" />
 </p>
 
 
