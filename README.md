@@ -3,12 +3,13 @@
 [View the project here!](https://recipes-pet-project.vercel.app/)
 
 **Summary**  
-Developed a recipe management application with a focus on data fetching, state management, and user interaction.
-Integrated external API data into a centralized Redux store and implemented simulated CRUD operations such as adding and removing recipes.
-Emphasized clean data flow, predictable state updates, and responsive UI behavior.
+A recipe management application focused on efficient data fetching and state handling. 
+Built with React and modern libraries, the app integrates external API data, supports recipe creation and deletion, and provides a smooth user experience with responsive design and dynamic routing.
+
+The project demonstrates structured state management with Redux Toolkit, server-state handling with TanStack Query, and clean separation of concerns in a real-world scenario.
 
 **💡Technologies:**
-* ReactJS
+* React
 * Typescript
 * Tailwind CSS
 * Tanstack Query
@@ -17,13 +18,12 @@ Emphasized clean data flow, predictable state updates, and responsive UI behavio
 
 **🚀Features**
 * Responsive design
-* Create recipe
-* Delete recipe
-* Dynamic routing 
-* Form handling
-* Basic filtering 
-* Seacrh recipes
-* Global state management
+* Create and delete recipes with instant UI updates
+* Dynamic routing for recipe details pages
+* Form handling with validation
+* Global state management with Redux Toolkit
+* Recipe search and basic filtering
+* Server state synchronization using TanStack Query
 
 **Desktop**
 <p align="center">
